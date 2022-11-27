@@ -1,8 +1,9 @@
 from time import sleep
 import tester
-import results
-import actResults
+# import results
+# import actResults
 import configparser
+import requests
 
 def createConfig():
     """
@@ -40,7 +41,18 @@ def init():
     while True:
         i += 1
         resultDict = tester.sTest([], threads, secure, pre_allocate, timeout)
-        actResults.insertResults(results.Results(tester.toMbps(resultDict['download']), tester.toMbps(resultDict['upload']), resultDict['ping'], resultDict['server']['latency'], resultDict['server']['sponsor']))
+        #sp = SpeedTest(download=tester.toMbps(resultDict['download']), upload=tester.toMbps(resultDict['upload']), ping=resultDict['ping'], latency=resultDict['server']['latency'], sponsor=resultDict['server']['sponsor'])
+        # actResults.insertResults(results.Results(tester.toMbps(resultDict['download']), tester.toMbps(resultDict['upload']), resultDict['ping'], resultDict['server']['latency'], resultDict['server']['sponsor']))
+        data = {
+            "download" : tester.toMbps(resultDict['download']),
+            "upload" : tester.toMbps(resultDict['upload']),
+            "ping" : resultDict['ping'],
+            "latency" : resultDict['server']['latency'],
+            "sponsor" : resultDict['server']['sponsor'],
+        }
+        
+        r = requests.post('http://127.0.0.1:8000/send', data=data)
+        print(r.status_code)
         
         if i == loop and loop != 0: exit()
         sleep(wait)

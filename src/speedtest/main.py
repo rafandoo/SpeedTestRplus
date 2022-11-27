@@ -31,7 +31,7 @@ def readConfig():
     return config
 
 def init(config):
-    if config == None:
+    if config.sections() == []:
         createConfig()
         init(readConfig())
     

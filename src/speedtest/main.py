@@ -1,7 +1,5 @@
 from time import sleep
 import tester
-# import results
-# import actResults
 import configparser
 import requests
 
@@ -23,26 +21,31 @@ def createConfig():
     with open('config.ini', 'w') as f:
         config.write(f)
 
-def init():
+def readConfig():
+    """
+    It reads the config.ini file and returns the config object
+    :return: The config object
+    """
     config = configparser.ConfigParser()
-    try:
-        config.read('config.ini')
-        threads = int(config['SERVER']['Threads'])
-        secure = config['SERVER']['Secure']
-        pre_allocate = config['SERVER']['Pre_allocate']
-        timeout = int(config['OPTIONS']['Timeout'])
-        loop = int(config['OPTIONS']['Loop'])
-        wait = int(config['OPTIONS']['Wait']) * 60
-    except:
+    config.read('config.ini')
+    return config
+
+def init(config):
+    if config == None:
         createConfig()
-        init()
+        init(readConfig())
+    
+    threads = int(config['SERVER']['Threads'])
+    secure = config['SERVER']['Secure']
+    pre_allocate = config['SERVER']['Pre_allocate']
+    timeout = int(config['OPTIONS']['Timeout'])
+    loop = int(config['OPTIONS']['Loop'])
+    wait = int(config['OPTIONS']['Wait']) * 60
     
     i = 0
     while True:
         i += 1
         resultDict = tester.sTest([], threads, secure, pre_allocate, timeout)
-        #sp = SpeedTest(download=tester.toMbps(resultDict['download']), upload=tester.toMbps(resultDict['upload']), ping=resultDict['ping'], latency=resultDict['server']['latency'], sponsor=resultDict['server']['sponsor'])
-        # actResults.insertResults(results.Results(tester.toMbps(resultDict['download']), tester.toMbps(resultDict['upload']), resultDict['ping'], resultDict['server']['latency'], resultDict['server']['sponsor']))
         data = {
             "download" : tester.toMbps(resultDict['download']),
             "upload" : tester.toMbps(resultDict['upload']),
@@ -52,10 +55,9 @@ def init():
         }
         
         r = requests.post('http://127.0.0.1:8000/send', data=data)
-        print(r.status_code)
         
         if i == loop and loop != 0: exit()
         sleep(wait)
 
 if __name__ == '__main__':
-    init()
+    init(readConfig())

@@ -3,3 +3,7 @@
   font-size: 25px;
 }
 
+/* mudar o tamanho da legenda do grafico c3 */
+.c3 text {
+  font-size: 12px;
+}

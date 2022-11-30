@@ -39,6 +39,13 @@ function meanResult(data) {
     return result;
 }
 
+/**
+ * It takes an array of objects and a property name, and returns an array containing the minimum and
+ * maximum values of that property.
+ * @param data - the data array
+ * @param property - the property of the data object to use for the calculation
+ * @returns An array of two numbers, the minimum and maximum values of the property in the data.
+ */
 function minMax(data, property) {
     let min = 9999, max = 0;
     data.forEach(item => {
@@ -48,6 +55,12 @@ function minMax(data, property) {
     return [min, max];
 }
 
+/**
+ * It takes a list of objects, each of which has a date and a download speed, and it creates a chart
+ * using Chart.js.
+ * @param data - [{date: "2019-11-01T00:00:00", download: "0.00", upload: "0.00"}, {date:
+ * "2019-11-01T00:00:00", download: "0.00", upload: "0.00
+ */
 function downloadChart(data) {
     const download_chart = $('#download_chart');
     let download_data = [], labels = [];
@@ -128,6 +141,12 @@ function downloadChart(data) {
     });
 }
 
+/**
+ * It takes a list of objects, each of which has a date and a upload speed, and it creates a chart
+ * using Chart.js.
+ * @param data - [{date: "2019-11-01T00:00:00", download: "0.00", upload: "0.00"}, {date:
+ * "2019-11-01T00:00:00", download: "0.00", upload: "0.00
+ */
 function uploadChart(data) {
     const upload_chart = $('#upload_chart');
     let upload_data = [], labels = [];
@@ -208,17 +227,26 @@ function uploadChart(data) {
     });
 }
 
-function downloadGauge(data, minMax) {
-    let download_gauge = c3.generate({
-        bindto: '#download_gauge',
+/**
+ * It creates a gauge chart.
+ * @param data - the data to be used in the chart
+ * @param property - the name of the property to be displayed in the gauge
+ * @param minMax - [0, 100]
+ * @param color - the color of the gauge
+ * @param units - the units of the gauge
+ * @returns The data is being returned as a string.
+ */
+function gaugeChart(data, property, minMax, color, units) {
+    c3.generate({
+        bindto: '#' + property + '_gauge',
         data: {
             columns: [
-                ['Download', parseFloat(data[0].download)]
+                [property , parseFloat(data[0][property])]
             ],
             type: 'gauge',
-            onclick: function (d, i) { console.log("onclick", d, i); },
-            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+            // onclick: function (d, i) { console.log("onclick", d, i); },
+            // onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+            // onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
         gauge: {
             label: {
@@ -228,116 +256,11 @@ function downloadGauge(data, minMax) {
             },
             min: minMax[0],
             max: minMax[1],
-            units: 'Mbps',
+            units: units,
             width: 20
         },
         color: {
-            pattern: ["rgb(78, 115, 223)"],
-            threshold: {   
-                unit: 'value',
-            }
-        },
-        size: {
-            height: 180
-        }
-    });
-}
-
-function uploadGauge(data, minMax) {
-    let upload_gauge = c3.generate({
-        bindto: '#upload_gauge',
-        data: {
-            columns: [
-                ['Upload', parseFloat(data[0].upload)]
-            ],
-            type: 'gauge',
-            onclick: function (d, i) { console.log("onclick", d, i); },
-            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-        },
-        gauge: {
-            label: {
-                format: function (value, ratio) {
-                    return value;
-                },
-            },
-            min: minMax[0],
-            max: minMax[1],
-            units: 'Mbps',
-            width: 20
-        },
-        color: {
-            pattern: ["rgb(28, 200, 138)"],
-            threshold: {   
-                unit: 'value',
-            }
-        },
-        size: {
-            height: 180
-        }
-    });
-}
-
-function pingGauge(data, minMax) {
-    let ping_gauge = c3.generate({
-        bindto: '#ping_gauge',
-        data: {
-            columns: [
-                ['Ping', parseFloat(data[0].ping)]
-            ],
-            type: 'gauge',
-            onclick: function (d, i) { console.log("onclick", d, i); },
-            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-        },
-        gauge: {
-            label: {
-                format: function (value, ratio) {
-                    return value;
-                },
-            },
-            min: minMax[0],
-            max: minMax[1],
-            units: 'ms',
-            width: 20
-        },
-        color: {
-            pattern: ["#36B9CC"],
-            threshold: {   
-                unit: 'value',
-            }
-        },
-        size: {
-            height: 180
-        }
-    });
-}
-
-function latencyGauge(data, minMax) {
-    let latency_gauge = c3.generate({
-        bindto: '#latency_gauge',
-        data: {
-            columns: [
-                ['Latency', parseFloat(data[0].latency)]
-            ],
-            type: 'gauge',
-            onclick: function (d, i) { console.log("onclick", d, i); },
-            onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-        },
-        gauge: {
-            label: {
-                format: function (value, ratio) {
-                    return value;
-                },
-            },
-            min: minMax[0],
-            max: minMax[1],
-            units: 'ms',
-            width: 20
-        },
-        color: {
-            pattern: ["#F6C23E"],
+            pattern: [color],
             threshold: {   
                 unit: 'value',
             }
@@ -362,12 +285,11 @@ $(document).ready (function () {
         ping_mean.text(meanResult(pData)[2] + ' ms');
         latency_mean.text(meanResult(pData)[3] + ' ms');
 
-
         downloadChart(pData);
         uploadChart(pData);
-        downloadGauge(processData(data), minMax(pData, 'download'));
-        uploadGauge(processData(data), minMax(pData, 'upload'));
-        pingGauge(processData(data), minMax(pData, 'ping'));
-        latencyGauge(processData(data), minMax(pData, 'latency'));
+        gaugeChart(pData, 'download', minMax(pData, 'download'), '#4E73DF', 'Mbps');
+        gaugeChart(pData, 'upload', minMax(pData, 'upload'), '#1CC88A', 'Mbps');
+        gaugeChart(pData, 'ping', minMax(pData, 'ping'), '#36B9CC', 'ms');
+        gaugeChart(pData, 'latency', minMax(pData, 'latency'), '#F6C23E', 'ms');
     });
 });

@@ -27,6 +27,10 @@
                 <div class="container-fluid">
                     <div class="d-sm-flex justify-content-between align-items-center mb-4">
                         <h3 class="text-dark mb-0">Dashboard</h3>
+                        <div>
+                            <button class="btn btn-primary btn-sm d-none d-sm-inline-block" type="button" onclick="location.reload();"><i class="fas fa-sync fa-sm text-white-50"></i>&nbsp;Refresh</button>
+                            <button class="btn btn-primary btn-sm d-none d-sm-inline-block text-white" type="button" onclick="exportFile();"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Export</button>    
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-xl-3 mb-4">
@@ -226,5 +230,6 @@
     <script src="{% static 'assets/js/bs-init.js' %}"></script>
     <script src="{% static 'assets/js/theme.js' %}"></script>
     <script src="{% static 'assets/js/results.js' %}"></script>
+    <script src="{% static 'assets/js/script.js' %}"></script>
 </body>
 </html>

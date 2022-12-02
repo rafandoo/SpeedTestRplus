@@ -24,3 +24,12 @@ def send(request):
         )
         sp.save()
     return JsonResponse({'status': 'ok'})
+
+def export(request):
+    with open('speedtest.csv', 'w') as f:
+        f.write('download,upload,ping,latency,sponsor' + '\n')
+        for sp in SpeedTest.objects.all():
+            data = f'{sp.download},{sp.upload},{sp.ping},{sp.latency},{sp.sponsor}' + '\n'
+            f.write(data)
+        
+    return JsonResponse({'status': 'ok'})

@@ -43,21 +43,27 @@ Run the `start.py` file using the command below to run the project.
 
 ## Functionalities 🔧
 
-✔️ 
+✔️ Dashboard of visualization of results
+
+✔️ Export data to CSV
 
 ## Observations 👀
 
 This project is not yet in its final version.
 
-
-
 ## Future enhancements 🚀
 
-✔️
+✔️ Filters.
+
+✔️ Export to other file formats.
+
+✔️ Auto refresh of the page.
+
+✔️ Metrics of analysis.
 
 ## License 🔑
 
-The [MIT License]() (MIT)
+The [MIT License](https://github.com/rafandoo/SpeedTestRplus/blob/d0e74a747e38b09006aa18de078717f5336c61c1/LICENSE) (MIT)
 
 Copyright :copyright: 2022 - Rafael Camargo
 

@@ -1,6 +1,7 @@
 from os import system
 import sys
 import threading
+import webbrowser
 
 def params():
     """
@@ -38,12 +39,15 @@ def main(param):
             cmd = ['python src/manage.py runserver 6080', 'python src/speedtest/main.py']
             execute('python src/manage.py migrate')
             threads = []
+            url = 'http://127.0.0.1:6080'
+            webbrowser.open(url)
             for c in cmd:
                 t = threading.Thread(target=execute, args=(c,))
                 threads.append(t)
                 t.start()
+                
         if prm == '-r':
-            execute('python manage.py flush --no-input')
+            execute('python src/manage.py flush --no-input')
 
 if __name__ == '__main__':
     param = params()

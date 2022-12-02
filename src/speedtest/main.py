@@ -54,7 +54,7 @@ def init(config):
             "sponsor" : resultDict['server']['sponsor'],
         }
         
-        r = requests.post('http://127.0.0.1:8000/send', data=data)
+        r = requests.post('http://127.0.0.1:6080/send', data=data)
         
         if i == loop and loop != 0: exit()
         sleep(wait)

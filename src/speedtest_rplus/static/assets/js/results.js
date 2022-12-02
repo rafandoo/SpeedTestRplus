@@ -241,7 +241,7 @@ function gaugeChart(data, property, minMax, color, units) {
         bindto: '#' + property + '_gauge',
         data: {
             columns: [
-                [property , parseFloat(data[0][property])]
+                [property, data]
             ],
             type: 'gauge',
             // onclick: function (d, i) { console.log("onclick", d, i); },
@@ -287,9 +287,9 @@ $(document).ready (function () {
 
         downloadChart(pData);
         uploadChart(pData);
-        gaugeChart(pData, 'download', minMax(pData, 'download'), '#4E73DF', 'Mbps');
-        gaugeChart(pData, 'upload', minMax(pData, 'upload'), '#1CC88A', 'Mbps');
-        gaugeChart(pData, 'ping', minMax(pData, 'ping'), '#36B9CC', 'ms');
-        gaugeChart(pData, 'latency', minMax(pData, 'latency'), '#F6C23E', 'ms');
+        gaugeChart(meanResult(pData)[0], 'download', minMax(pData, 'download'), '#4E73DF', 'Mbps');
+        gaugeChart(meanResult(pData)[1], 'upload', minMax(pData, 'upload'), '#1CC88A', 'Mbps');
+        gaugeChart(meanResult(pData)[2], 'ping', minMax(pData, 'ping'), '#36B9CC', 'ms');
+        gaugeChart(meanResult(pData)[3], 'latency', minMax(pData, 'latency'), '#F6C23E', 'ms');
     });
 });

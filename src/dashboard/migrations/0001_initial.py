@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('ping', models.DecimalField(decimal_places=2, max_digits=5)),
                 ('latency', models.DecimalField(decimal_places=2, max_digits=5)),
                 ('sponsor', models.CharField(max_length=100)),
-                ('date', models.DateTimeField(auto_now_add=True)),
+                ('date', models.DateTimeField(auto_now_add=False)),
             ],
         ),
     ]

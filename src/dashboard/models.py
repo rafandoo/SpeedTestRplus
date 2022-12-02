@@ -6,4 +6,4 @@ class SpeedTest(models.Model):
     ping = models.DecimalField(max_digits=5, decimal_places=2)
     latency = models.DecimalField(max_digits=5, decimal_places=2)
     sponsor = models.CharField(max_length=100)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=False)

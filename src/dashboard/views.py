@@ -3,6 +3,7 @@ from django.shortcuts import render
 from dashboard.models import SpeedTest
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
 
 def dashboard(request):
     return render(request, 'dashboard.html', {})
@@ -20,7 +21,8 @@ def send(request):
             upload=request.POST['upload'], 
             ping=request.POST['ping'], 
             latency=request.POST['latency'], 
-            sponsor=request.POST['sponsor']
+            sponsor=request.POST['sponsor'],
+            date=datetime.now()
         )
         sp.save()
     return JsonResponse({'status': 'ok'})

@@ -1,4 +1,4 @@
-<h1 align="center">RC SpeedTest 📶</h1>
+<h1 align="center">R+ SpeedTest 📶</h1>
 
 > Project Status: ⏳ In progress
 
@@ -13,7 +13,9 @@ This project aims to provide an analysis of internet speed. Allowing you to expo
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Plotly-%233F4F75.svg?style=for-the-badge&logo=plotly&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
+  <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white"/>
   <img src="https://img.shields.io/badge/SQLite3-07405E?style=for-the-badge&logo=sqlite&logoColor=white"/>
 </p>
 
@@ -29,13 +31,11 @@ To run this installation as project dependencies you will install the command be
 
 ## How to execute ▶️
 
-Run the `main.py` file using the command below to run the project.
+Run the `start.py` file using the command below to run the project.
 
 ```shell
-   python main.py
+   python start.py -run
 ```
-
-## Documents 📄
 
 ## Libraries and frameworks 📚
 
@@ -49,7 +49,6 @@ Run the `main.py` file using the command below to run the project.
 
 This project is not yet in its final version.
 
-## Screenshots 🖼
 
 
 ## Future enhancements 🚀
